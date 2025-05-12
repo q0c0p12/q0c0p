@@ -1,0 +1,18 @@
+-- 프로필 테이블에 points 컬럼 추가 (없는 경우)
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS points INTEGER DEFAULT 0;
+
+-- orders 테이블 구조 확인 및 수정
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS service_id INTEGER;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS service_title TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS total_amount INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending';
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+
+-- service_packages 테이블 구조 확인 및 수정
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS service_id INTEGER;
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS name TEXT;
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS price INTEGER DEFAULT 0;
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS delivery_time INTEGER DEFAULT 1;
+ALTER TABLE service_packages ADD COLUMN IF NOT EXISTS features JSONB DEFAULT '[]'::jsonb;
